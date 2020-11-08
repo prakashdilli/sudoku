@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sudoku Generator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .cta{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .no-break {
+      page-break-inside: avoid;
+    }
+.outer{
+  margin: 20px 0px;
+}
+        table {
+      margin: auto auto;
+      border-spacing: 0px;
+    }
+
+    td {
+      height: 30px;
+      width: 30px;
+      border-right: 1px solid;
+      border-bottom: 1px solid;
+      text-align: center;
+       font-size: 18px;
+    }
+
+    td:first-child {
+      border-left: solid 2px;
+    }
+
+    td:nth-child(3n) {
+      border-right: solid 2px;
+    }
+
+    tr:first-child td {
+      border-top: solid 2px;
+    }
+
+    tr:nth-child(3n) td {
+      border-bottom: solid 2px;
+    }
+
+    .puzzle-number {
+      text-align: center;
+      font-size: 15px;
+    }
+
+    #answers {
+      page-break-before: always;
+    }
+
+    #answers table {
+      margin: auto auto;
+    }
+
+    #answers {
+      width: 100%;
+    }
+
+    #answers .puzzle-number {
+      font-size: 10px;
+    }
+
+    #answers table td {
+      height: 25px;
+      width: 25px;
+      border-right: 1px solid;
+      border-bottom: 1px solid;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    #answers td:first-child {
+      border-left: solid 2px;
+    }
+
+    #answers td:nth-child(3n) {
+      border-right: solid 2px;
+    }
+
+    #answers tr:first-child td {
+      border-top: solid 2px;
+    }
+
+    #answers tr:nth-child(3n) td {
+      border-bottom: solid 2px;
+    }
+
+    #answers .inner {
+      width: 50%;
+      float: left;
+    }
+
+    #suduko-puzzles{
+        width: 100%;
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #suduko-puzzles #questions{
+        width: 800px;
+        /* display: flex;
+        flex-wrap: wrap; */
+    }
+    #suduko-puzzles #questions>div{
+        width: 400px;
+        float: left;
+    }
+    #suduko-puzzles #answers{
+        width: 800px;
+        /* display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly; */
+    }
+    #suduko-puzzles #answers>div{
+        width: 250px;
+        float: left;
+    }
+    .header{
+        display: none;
+        width: 100%;
+        text-align: center;
+        margin: 50px 0px 20px 0px;
+    }
+
+    .title{
+        text-align: center;
+        margin-top: 100px;
+    }
+    .description{
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 50px;
+    }
+    .label{
+        color: #656565;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+    .cta{
+        margin-top: 40px;
+    }
+    @media print {
+        .title,.description,.form,.cta{
+            display: none;
+        }
+        .suduko-puzzles{
+            margin-top: 50px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="title">Sudoku Generator</h2>
+                <p class="description">Generate Sudoku Puzzles in just a few clicks</p>
+            </div>
+        </div>
+        <div class="row form">
+            <div class="col-4">
+                <div class="label">Difficulty Rating</div>
+                <select class="custom-select" id="difficultyLevel">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                  </select>
+            </div>
+            <div class="col-4">
+                <div class="label">No Of Puzzles</div>
+                <select class="custom-select" id="numberOfPuzzles">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="60">60</option>
+                    <option value="70">70</option>
+                    <option value="80">80</option>
+                    <option value="90">90</option>
+                    <option value="100">100</option>
+                  </select>
+            </div>
+            <div class="col-4">
+                <div class="label">Show Answer</div>
+                <select class="custom-select" id="showAnswer">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+            </div>
+        </div>
+       <div class="cta">
+        <button type="button" id="generateBtn" class="btn btn-primary">Generate</button>
+       </div>
+       <div class="row">
+           <div id="suduko-puzzles">
+               <div id="questions">
+               </div>
+               <p class="header">
+                   Answer
+               </p>
+               <div id="answers">
+               </div>
+           </div>
+       </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="./sudoku.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>

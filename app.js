@@ -5,28 +5,25 @@ $( document ).ready(function() {
         var numberOfPuzzles = getValueFromSelect('#numberOfPuzzles')
         var showAnswer = getValueFromSelect('#showAnswer')
 
-        var puzzleQuestion = []
-        var puzzleAnswer = []
+                $('#print').css({display:'block'})
 
         // generate puzzle
         for (let i = 1; i <= numberOfPuzzles; i++) {
             let question = sudoku.generate(difficultyLevel);
             let answer = sudoku.solve(question);
 
-            puzzleQuestion.push({
-                puzzleNumber: i,
-                puzzleQuestion: question,
-            }) 
             renderPuzzle(question,i,'#questions')
 
             if(showAnswer == 'yes'){
-                // $('.header').css({display:'block'})
                 renderPuzzle(answer,i,'#answers')
             }
           }
       });
 });
 
+$( "#print" ).click(function() {
+    window.print()
+})
 // functions
 
 function getValueFromSelect(selector){

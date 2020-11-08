@@ -149,6 +149,10 @@
     .cta{
         margin-top: 40px;
     }
+    #print{
+        display: none;
+        margin-left: 20px;
+    }
     @media print {
         .title,.description,.form,.cta{
             display: none;
@@ -201,6 +205,7 @@
         </div>
        <div class="cta">
         <button type="button" id="generateBtn" class="btn btn-primary">Generate</button>
+        <button type="button" id="print" class="btn btn-primary">Print</button>
        </div>
        <div class="row">
            <div id="suduko-puzzles">

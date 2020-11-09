@@ -5,8 +5,9 @@ $( document ).ready(function() {
         var numberOfPuzzles = getValueFromSelect('#numberOfPuzzles')
         var showAnswer = getValueFromSelect('#showAnswer')
 
-                $('#print').css({display:'block'})
-
+        $('#print').css({display:'block'})
+        $('#questions').empty()
+        $('#answers').empty()
         // generate puzzle
         for (let i = 1; i <= numberOfPuzzles; i++) {
             let question = sudoku.generate(difficultyLevel);
